@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>breath.guide | guide the breath and the breath will guide you</title>
+    <meta name="description" content="Discover breathfulness - an active alternative to meditation. Join our 4-week program 'Adopting the Breathful Habit' launching September 2025. Perfect for those who find meditation challenging.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #4A90A4;
+            --sage-green: #9CAF88;
+            --warm-beige: #F5F1E8;
+            --mocha-mousse: #A8826B;
+            --deep-teal: #2C5F5F;
+            --charcoal: #36454F;
+            --soft-white: #FEFEFE;
+            --light-sage: #E8F2E1;
+            
+            --font-primary: 'Inter', sans-serif;
+            --font-display: 'Playfair Display', serif;
+            
+            --shadow-subtle: 0 2px 20px rgba(44, 95, 95, 0.08);
+            --shadow-card: 0 4px 32px rgba(44, 95, 95, 0.12);
+            --border-radius: 16px;
+            --border-radius-small: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.6;
+            color: var(--charcoal);
+            background: linear-gradient(135deg, var(--soft-white) 0%, var(--warm-beige) 100%);
+            overflow-x: hidden;
+        }
+        
+        /* Breathing Animation */
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(254, 254, 254, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(168, 130, 107, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--deep-teal);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        
+        .logo::after {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--sage-green);
+            border-radius: 50%;
+            margin-left: 4px;
+            animation: breathe 4s infinite ease-in-out;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 8rem 2rem 4rem;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--warm-beige) 0%, rgba(156, 175, 136, 0.1) 50%, var(--soft-white) 100%);
+            z-index: -2;
+        }
+        
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .floating-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--sage-green), var(--primary-blue));
+            opacity: 0.1;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .floating-circle:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            top: 20%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-circle:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            top: 60%;
+            left: 15%;
+            animation-delay: 2s;
+        }
+        
+        .floating-circle:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            bottom: 20%;
+            right: 20%;
+            animation-delay: 4s;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero-content h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 600;
+            line-height: 1.1;
+            color: var(--deep-teal);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero-tagline {
+            font-size: 1.1rem;
+            color: var(--sage-green);
+            font-style: italic;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--charcoal);
+            margin-bottom: 3rem;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+        
+        .hero-description strong {
+            color: var(--deep-teal);
+            font-weight: 600;
+        }
+        
+        .cta-primary {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary-blue), var(--deep-teal));
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-card);
+        }
+        
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 40px rgba(44, 95, 95, 0.2);
+        }
+        
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .breathing-circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(74, 144, 164, 0.2), rgba(156, 175, 136, 0.3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: breathe 4s infinite ease-in-out;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .breathing-circle:hover {
+            transform: scale(1.05);
+        }
+        
+        .breathing-inner {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--sage-green), var(--primary-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-align: center;
+            animation: breathe 4s infinite ease-in-out reverse;
+        }
+        
+        .video-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 225px;
+            background: linear-gradient(135deg, var(--warm-beige), var(--light-sage));
+            border-radius: var(--border-radius);
+            border: 2px solid var(--sage-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            color: var(--deep-teal);
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-card);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .breathing-circle:hover + .video-placeholder,
+        .video-placeholder:hover {
+            opacity: 1;
+        }
+        
+        /* Value Proposition Section */
+        .value-section {
+            padding: 6rem 2rem;
+            background: var(--soft-white);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--deep-teal);
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--sage-green);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .value-card {
+            background: linear-gradient(135deg, var(--warm-beige), var(--soft-white));
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-subtle);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(156, 175, 136, 0.2);
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-card);
+        }
+        
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--sage-green), var(--primary-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .value-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--deep-teal);
+            margin-bottom: 1rem;
+        }
+        
+        .value-card p {
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+        
+        /* Breathfulness vs Meditation */
+        .comparison-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--light-sage), var(--warm-beige));
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .comparison-card {
+            background: var(--soft-white);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-card);
+        }
+        
+        .comparison-card.highlight {
+            background: linear-gradient(135deg, var(--primary-blue), var(--deep-teal));
+            color: white;
+        }
+        
+        .comparison-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: inherit;
+        }
+        
+        .comparison-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .comparison-list li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .comparison-list li::before {
+            content: '✓';
+            color: var(--sage-green);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .highlight .comparison-list li::before {
+            color: var(--light-sage);
+        }
+        
+        /* Program Preview */
+        .program-section {
+            padding: 6rem 2rem;
+            background: var(--soft-white);
+        }
+        
+        .program-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+            align-items: center;
+        }
+        
+        .program-content h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--deep-teal);
+            margin-bottom: 1.5rem;
+        }
+        
+        .program-timeline {
+            background: linear-gradient(135deg, var(--warm-beige), var(--light-sage));
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-subtle);
+        }
+        
+        .week {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(44, 95, 95, 0.1);
+        }
+        
+        .week:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .week-number {
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .week-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--deep-teal);
+            margin: 0.5rem 0;
+        }
+        
+        /* Trust Section */
+        .trust-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--deep-teal), var(--primary-blue));
+            color: white;
+            text-align: center;
+        }
+        
+        .trust-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .trust-section h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .safety-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .safety-feature {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-small);
+            backdrop-filter: blur(10px);
+        }
+        
+        .safety-feature h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Lead Magnet Section */
+        .lead-magnet {
+            padding: 6rem 2rem;
+            background: var(--warm-beige);
+            text-align: center;
+        }
+        
+        .lead-magnet-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--soft-white);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-card);
+        }
+        
+        .lead-magnet h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--deep-teal);
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(156, 175, 136, 0.3);
+            border-radius: var(--border-radius-small);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--sage-green);
+        }
+        
+        .privacy-note {
+            font-size: 0.9rem;
+            color: var(--sage-green);
+            margin-top: 1rem;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 6rem 2rem;
+            background: var(--soft-white);
+        }
+        
+        .faq-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .faq-item {
+            border: 1px solid rgba(156, 175, 136, 0.2);
+            border-radius: var(--border-radius-small);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            background: var(--warm-beige);
+            padding: 1.5rem;
+            font-weight: 600;
+            color: var(--deep-teal);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            padding: 1.5rem;
+            background: var(--soft-white);
+            color: var(--charcoal);
+            line-height: 1.7;
+        }
+        
+        /* Final CTA */
+        .final-cta {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--sage-green), var(--primary-blue));
+            text-align: center;
+            color: white;
+        }
+        
+        .final-cta h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-secondary {
+            background: var(--soft-white);
+            color: var(--deep-teal);
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+        
+        .cta-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-card);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--charcoal);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer p {
+            margin-bottom: 1rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+            
+            .comparison-grid,
+            .program-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .breathing-circle {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .breathing-inner {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .video-placeholder {
+                width: 300px;
+                height: 169px;
+            }
+            
+            .nav {
+                padding: 1rem;
+            }
+            
+            .hero {
+                padding: 6rem 1rem 3rem;
+            }
+            
+            section {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+        
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--warm-beige);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loading-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--sage-green), var(--primary-blue));
+            animation: breathe 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Animation -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-circle"></div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="#" class="logo">breath.guide</a>
+            <div class="nav-links">
+                <span style="color: var(--sage-green); font-style: italic;">launching September 2025</span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="floating-elements">
+            <div class="floating-circle"></div>
+            <div class="floating-circle"></div>
+            <div class="floating-circle"></div>
+        </div>
+        
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Discover breathfulness</h1>
+                <p class="hero-tagline">guide the breath and the breath will guide you</p>
+                <p class="hero-description">
+                    For those who find meditation challenging, breathwork offers an <strong>active path to presence</strong>. 
+                    No stillness required - just your breath as your guide to immediate calm and lasting resilience.
+                </p>
+                <a href="#early-access" class="cta-primary">
+                    Join the September cohort
+                    <span style="margin-left: 8px;">→</span>
+                </a>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="breathing-circle">
+                    <div class="breathing-inner">
+                        Breathe with me
+                    </div>
+                </div>
+                <div class="video-placeholder">
+                    Welcome Video Embed Here<br>
+                    <small>(Hover to reveal)</small>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Value Proposition -->
+    <section class="value-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why breathfulness works when meditation doesn't</h2>
+                <p class="section-subtitle">
+                    Active engagement with your body's natural wisdom, designed for modern minds that need something to focus on
+                </p>
+            </div>
+            
+            <div class="value-grid">
+                <div class="value-card">
+                    <div class="value-icon">🫁</div>
+                    <h3>Immediate results</h3>
+                    <p>Feel the difference in minutes, not months. Your nervous system responds instantly to conscious breathing patterns. </p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <h3>Active meditation</h3>
+                    <p>Perfect for busy minds - gives you something to do instead of trying to stop thinking.  Your breath becomes the anchor. </p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">🛡️</div>
+                    <h3>Science-backed safety</h3>
+                    <p>Trauma-informed techniques  rooted in nervous system science. Graduate-level training with medical oversight. </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Breathfulness vs Meditation -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Two paths to the same destination</h2>
+                <p class="section-subtitle">Choose the approach that works with your mind, not against it</p>
+            </div>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h3>Traditional meditation</h3>
+                    <ul class="comparison-list">
+                        <li>Observe thoughts without changing them </li>
+                        <li>Requires stillness and extended focus </li>
+                        <li>Benefits develop gradually over time</li>
+                        <li>Can feel challenging for anxious minds </li>
+                        <li>Passive awareness cultivation </li>
+                    </ul>
+                    <p><em>Beautiful practice, but not for everyone.</em></p>
+                </div>
+                
+                <div class="comparison-card highlight">
+                    <h3>Breathfulness approach</h3>
+                    <ul class="comparison-list">
+                        <li>Direct control over your physiology </li>
+                        <li>Works with active, busy minds </li>
+                        <li>Immediate nervous system relief </li>
+                        <li>Perfect for ADHD and anxiety </li>
+                        <li>Active engagement with your body</li>
+                    </ul>
+                    <p><em>Your breath is always available - no apps, no special space required.</em></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Program Preview -->
+    <section class="program-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Adopting the Breathful Habit</h2>
+                <p class="section-subtitle">4 weeks to transform your relationship with stress, starting September 2025</p>
+            </div>
+            
+            <div class="program-grid">
+                <div class="program-content">
+                    <h3>Build your personal toolkit for life</h3>
+                    <p>This isn't just a course - it's your pathway to becoming your own nervous system expert. Learn techniques you can use anywhere, anytime, without any equipment.</p>
+                    
+                    <p>Following the "help me to do it by myself" philosophy, you'll graduate with lifelong skills for stress resilience, emotional regulation, and daily presence. </p>
+                    
+                    <p><strong>Perfect for:</strong> Beginners to breathwork, people who struggle with traditional meditation, and anyone seeking practical tools for modern stress.</p>
+                </div>
+                
+                <div class="program-timeline">
+                    <div class="week">
+                        <div class="week-number">Week 1</div>
+                        <div class="week-title">Foundation & Awareness</div>
+                        <p>Discover your natural breath patterns and learn the fundamentals of nervous system regulation.</p>
+                    </div>
+                    
+                    <div class="week">
+                        <div class="week-number">Week 2</div>
+                        <div class="week-title">Daily Integration</div>
+                        <p>Master 3-5 minute practices that fit seamlessly into your existing routine.</p>
+                    </div>
+                    
+                    <div class="week">
+                        <div class="week-number">Week 3</div>
+                        <div class="week-title">Emotional Regulation</div>
+                        <p>Learn specific techniques for stress, anxiety, better sleep, and increased energy.</p>
+                    </div>
+                    
+                    <div class="week">
+                        <div class="week-number">Week 4</div>
+                        <div class="week-title">Sustainable Practice</div>
+                        <p>Design your personalised breathwork toolkit for lifelong wellness and resilience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Trust & Safety -->
+    <section class="trust-section">
+        <div class="container">
+            <div class="trust-content">
+                <h2>Your safety is our first priority</h2>
+                <p>Breathwork is generally safe for most people when taught properly. We follow strict ethical guidelines and trauma-informed practices.</p>
+                
+                <div class="safety-features">
+                    <div class="safety-feature">
+                        <h4>Professional Training</h4>
+                        <p>GPBA-certified practitioner with medical oversight</p>
+                    </div>
+                    
+                    <div class="safety-feature">
+                        <h4>Clear Boundaries</h4>
+                        <p>Contraindications discussed, medical clearance when needed</p>
+                    </div>
+                    
+                    <div class="safety-feature">
+                        <h4>Your Pace</h4>
+                        <p>Start gentle, progress gradually, stop anytime</p>
+                    </div>
+                    
+                    <div class="safety-feature">
+                        <h4>Integration Support</h4>
+                        <p>Safe space to process experiences with trained facilitator</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Lead Magnet -->
+    <section class="lead-magnet" id="early-access">
+        <div class="container">
+            <div class="lead-magnet-card">
+                <h2>Begin your breathful journey today</h2>
+                <p>Get instant access to our "5-Minute Morning Breathwork Routine" plus exclusive updates about the September programme launch.</p>
+                
+                <form class="lead-form" action="#" method="post">
+                    <div class="form-group">
+                        <label for="name">Your name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Your email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <button type="submit" class="cta-primary" style="width: 100%;">
+                        Get my free morning routine
+                    </button>
+                    
+                    <p class="privacy-note">
+                        We respect your privacy and never share your information. Unsubscribe at any time.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Common questions about breathwork</h2>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is breathwork safe for everyone?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Breathwork is generally safe for most people, but certain conditions require modified approaches or medical clearance. We discuss contraindications before starting and always recommend consulting your healthcare provider if you have any medical conditions.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How is this different from meditation apps?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Unlike passive meditation, breathwork gives your active mind something to focus on. It's perfect for people who struggle with traditional meditation because it works WITH your busy mind rather than asking you to empty it.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What if I've never done breathwork before?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Perfect! This programme is designed for complete beginners. If you can breathe, you can do breathwork. We start with simple techniques and progress gradually at your own pace.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How much time do I need each day?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Just 3-5 minutes daily to start. The beauty of breathwork is that it fits into any schedule - you can practice while commuting, before meetings, or as part of your morning routine.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Will this replace my need for therapy or medication?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely not. Breathwork is a complementary practice that supports overall wellbeing. It's not a replacement for medical care, therapy, or prescribed medications. We work alongside your existing healthcare team.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Ready to breathe your way to presence?</h2>
+            <p>Join hundreds of others discovering the power of breathfulness. Early access to the September programme opens soon.</p>
+            
+            <a href="#early-access" class="cta-secondary">
+                Secure your place now
+                <span style="margin-left: 8px;">→</span>
+            </a>
+            
+            <p style="margin-top: 2rem; font-style: italic; opacity: 0.9;">
+                "Guide the breath and the breath will guide you"
+            </p>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 breath.guide | Certified breathwork practitioner following GPBA ethical guidelines</p>
+            <p>This site uses British English throughout. Contact us at hello@breath.guide</p>
+            <p style="font-size: 0.9rem; opacity: 0.7;">
+                Disclaimer: Breathwork is not a substitute for medical treatment. Always consult healthcare professionals for medical concerns.
+            </p>
+        </div>
+    </footer>
+    
+    <script>
+        // Loading animation
+        window.addEventListener('load', function() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            setTimeout(() => {
+                loadingOverlay.classList.add('hidden');
+            }, 1000);
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const icon = this.querySelector('span');
+                
+                if (answer.style.display === 'block') {
+                    answer.style.display = 'none';
+                    icon.textContent = '+';
+                } else {
+                    answer.style.display = 'block';
+                    icon.textContent = '−';
+                }
+            });
+        });
+        
+        // Breathing circle interaction
+        document.querySelector('.breathing-circle').addEventListener('click', function() {
+            this.style.animationDuration = '2s';
+            setTimeout(() => {
+                this.style.animationDuration = '4s';
+            }, 10000);
+        });
+        
+        // Form submission (placeholder)
+        document.querySelector('.lead-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const button = this.querySelector('button');
+            const originalText = button.innerHTML;
+            
+            button.innerHTML = 'Sending...';
+            button.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                button.innerHTML = 'Thank you! Check your email ✓';
+                button.style.background = 'var(--sage-green)';
+                
+                // Reset form
+                setTimeout(() => {
+                    this.reset();
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                    button.style.background = '';
+                }, 3000);
+            }, 2000);
+        });
+        
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.value-card, .comparison-card, .faq-item').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Dynamic navigation background
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(254, 254, 254, 0.98)';
+                nav.style.backdropFilter = 'blur(25px)';
+            } else {
+                nav.style.background = 'rgba(254, 254, 254, 0.95)';
+                nav.style.backdropFilter = 'blur(20px)';
+            }
+        });
+        
+        // Breathing pattern guide (optional enhancement)
+        let breathingActive = false;
+        
+        function startBreathingGuide() {
+            if (breathingActive) return;
+            
+            breathingActive = true;
+            const circle = document.querySelector('.breathing-inner');
+            const originalText = circle.innerHTML;
+            
+            const breathCycle = ['Breathe in...', 'Hold...', 'Breathe out...', 'Rest...'];
+            let step = 0;
+            
+            const cycleInterval = setInterval(() => {
+                circle.innerHTML = breathCycle[step];
+                step = (step + 1) % breathCycle.length;
+            }, 1000);
+            
+            // Stop after 8 cycles (32 seconds)
+            setTimeout(() => {
+                clearInterval(cycleInterval);
+                circle.innerHTML = originalText;
+                breathingActive = false;
+            }, 32000);
+        }
+        
+        // Optional: Add breathing guide trigger
+        document.querySelector('.breathing-circle').addEventListener('dblclick', startBreathingGuide);
+    </script>
+</body>
+</html>
